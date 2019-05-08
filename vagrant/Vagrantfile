@@ -1,0 +1,7 @@
+Vagrant.configure("2") do |config|
+  config.vm.provision "shell", inline: "echo Starting vagrant"
+
+  config.vm.define "centos7" do |centos7|
+    config.vm.box = "centos/7"
+  end
+end
