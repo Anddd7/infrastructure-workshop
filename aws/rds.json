@@ -439,11 +439,13 @@
                         "AvailabilityZone"
                     ]
                 },
-                "DBInstanceClass": "db.m1.small",
-                "DBName": "rds-demo",
-                "Engine": "postgres",
-                "MasterUserPassword":"rds-user",
-                "MasterUsername": "rds-password"
+                "DBName": "rdsdemo",
+                "AllocatedStorage": "10",
+                "DBInstanceClass": "db.t2.micro",
+                "Engine": "MySQL",
+                "EngineVersion": "5.5",
+                "MasterUsername": "rdsuser",
+                "MasterUserPassword": "rdspassword"
             },
             "Metadata": {
                 "AWS::CloudFormation::Designer": {
@@ -464,6 +466,22 @@
                         "Value": {
                             "Ref": "AWS::StackId"
                         }
+                    }
+                ],
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 3306,
+                        "ToPort": 3306,
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ],
+                "SecurityGroupEgress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": -1,
+                        "ToPort": -1,
+                        "CidrIp": "0.0.0.0/0"
                     }
                 ]
             },
