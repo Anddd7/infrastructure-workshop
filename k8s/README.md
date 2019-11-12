@@ -7,14 +7,22 @@ Ref: [Multi Node Kubernetes Cluster with Vagrant, VirtualBox and Kubeadm](https:
   - [install-kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 - vitrual box
 
-### Standalone k8s
+## Standalone k8s
 - deploy docker compose
 - deploy k8s
   - You can deploy a docker compose on your local k8s, using [docker stack](https://alanhou.org/docker-kubernetes/).
-  - Or using [kompose](https://kompose.io/) to deploy dc, if no docker stack tools
-  - Or convert dc to k8s config, then deploy them: ``
+  - ~~Or using [kompose](https://kompose.io/) to deploy dc, if no docker stack tools~~
+  - Or convert dc to k8s config, then deploy them
 
-### Let's GO
+### k8s resources
+Pod: 
+- 最小部署单元
+- 由1~n个共享资源(volume,ports)的容器组成, 可以通过localhost访问彼此
+- 异常终止无法自动恢复
+
+
+
+## Let's GO
 
 - prepare server by vagrant
   - check ip

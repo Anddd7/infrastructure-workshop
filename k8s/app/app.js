@@ -1,7 +1,9 @@
 const redis = require("redis");
 const http = require("http");
 const url = require("url");
-const client = redis.createClient("redis://redis:6379");
+const client = redis.createClient(
+  process.env.REDIS_URL || "redis://localhost:6379"
+);
 
 client.on("connect", () => console.log("connected"));
 
@@ -18,7 +20,7 @@ http
         if (err) {
           res.write(err);
         } else {
-          res.write(`get successful: [${key}:${reply}]`);
+          res.write(`set successful: [${key}:${value}]`);
         }
         res.end();
       });
@@ -29,7 +31,7 @@ http
         if (err) {
           res.write(err);
         } else {
-          res.write(`set [${key}] successful: [${value}]`);
+          res.write(`get [${key}] successful: [${reply}]`);
         }
         res.end();
       });
