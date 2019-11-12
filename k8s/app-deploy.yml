@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-node-deploy
+  labels:
+    app: app-node
+    
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-node
+  template:
+    metadata:
+      labels:
+        app: app-node
+    spec:
+      containers:
+        - name: connector
+          image: temp/node-connector
+          imagePullPolicy: Never
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: REDIS_URL
+              value: "redis://app-redis-svc:6379" # 使用redis service的name
