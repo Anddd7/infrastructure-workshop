@@ -11,7 +11,8 @@ Ref: [Multi Node Kubernetes Cluster with Vagrant, VirtualBox and Kubeadm](https:
 - deploy docker compose
 - deploy k8s
   - You can deploy a docker compose on your local k8s, using [docker stack](https://alanhou.org/docker-kubernetes/).
-- convert to k8s config and deploy k8s
+  - Or using [kompose](https://kompose.io/) to deploy dc, if no docker stack tools
+  - Or convert dc to k8s config, then deploy them: ``
 
 ### Let's GO
 
