@@ -1,14 +1,38 @@
-var redis = require("redis");
-var client = redis.createClient("redis://redis:6379");
+const redis = require("redis");
+const http = require("http");
+const url = require("url");
+const client = redis.createClient("redis://redis:6379");
 
-client.on("connect", function() {
-  console.log("connected");
-});
+client.on("connect", () => console.log("connected"));
 
-client.set("framework", "node", function(err, reply) {
-  console.log(reply);
-});
+http
+  .createServer((req, res) => {
+    var query = url.parse(req.url, true).query;
+    const key = query.key;
+    const value = query.value;
 
-client.get("framework", function(err, reply) {
-  console.log(reply);
-});
+    if (value) {
+      client.set(key, value, (err, reply) => {
+        console.log(err, reply);
+
+        if (err) {
+          res.write(err);
+        } else {
+          res.write(`get successful: [${key}:${reply}]`);
+        }
+        res.end();
+      });
+    } else {
+      client.get(key, (err, reply) => {
+        console.log(err, reply);
+
+        if (err) {
+          res.write(err);
+        } else {
+          res.write(`set [${key}] successful: [${value}]`);
+        }
+        res.end();
+      });
+    }
+  })
+  .listen(8080);

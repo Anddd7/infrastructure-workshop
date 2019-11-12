@@ -2,6 +2,15 @@ version: "3"
 services:
   connector:
     build: .
+    image: temp/node-connector
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - redis
+    ports:
+      - 8080:8080
 
   redis:
     image: "redis"
