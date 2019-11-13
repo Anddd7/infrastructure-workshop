@@ -27,3 +27,17 @@ spec:
           cpu: "500m"
       ports:
         - containerPort: 6379
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: temp-app-service
+spec:
+  selector:
+    name: temp-app
+  type: NodePort
+  ports:
+    - port: 8080
+      nodePort: 30001 # 监听每一个node的30001端口, 并转发流量给service对应的pod

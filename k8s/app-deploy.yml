@@ -28,3 +28,56 @@ spec:
           env:
             - name: REDIS_URL
               value: "redis://app-redis-svc:6379" # 使用redis service的name
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-node-service
+spec:
+  selector:
+    app: app-node
+  type: LoadBalancer
+  ports:
+    - port: 8080
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-redis-deploy
+  labels:
+    app: app-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-redis
+  template:
+    metadata:
+      labels:
+        app: app-redis
+    spec:
+      containers:
+        - name: redis
+          image: redis
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 6379
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-redis-svc
+spec:
+  selector:
+    app: app-redis
+  ports:
+    - port: 6379
