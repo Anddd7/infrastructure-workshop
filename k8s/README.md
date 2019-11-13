@@ -70,4 +70,9 @@ kubectl delete -f redis-svc.yml,redis-deploy.yml,app-deploy.yml,app-svc.yml
   - bind account to cluster admin role `kubectl create clusterrolebinding dashboard-admin --clusterrole=cluster-admin --serviceaccount=default:dashboard-admin`
   - get access token `kubectl describe secret $(kubectl get secret | grep dashboard-admin | awk '{print $1}')`
 
+- build & deploy app into k8s cluster
+  - install image register [trow](https://github.com/ContainerSolutions/trow)
+  - build & push the image into industry [jenkins on k8s](https://www.qikqiak.com/k8s-book/docs/37.Jenkins%20Pipeline.html)
+  - deploy!
+
 ## Maintenance

@@ -18,7 +18,6 @@ spec:
       containers:
         - name: connector
           image: temp/node-connector
-          imagePullPolicy: Never
           resources:
             limits:
               memory: "128Mi"

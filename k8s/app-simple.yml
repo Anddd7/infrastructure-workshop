@@ -9,7 +9,6 @@ spec:
   containers:
     - name: connector
       image: temp/node-connector
-      imagePullPolicy: Never
       resources:
         limits:
           memory: "128Mi"
@@ -29,7 +28,6 @@ spec:
         - containerPort: 6379
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
