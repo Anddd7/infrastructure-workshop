@@ -57,7 +57,17 @@ kubectl delete -f redis-svc.yml,redis-deploy.yml,app-deploy.yml,app-svc.yml
 
 ## Let's GO
 
-- prepare server by vagrant
-  - check ip
-  - install required env
--
+- prepare server by vagrant, find more details in `Vagrantfile`
+- check docker/kubernetes are ready in servers
+  - `vagrant ssh <name>`
+- install k8s-dashboard
+  - `kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta4/aio/deploy/recommended.yaml`
+  - ~~start dashoboard and allow request from remote server, `kubectl proxy --address 0.0.0.0 --accept-hosts '.*'`~~
+    - dashboard can not published by http, you can modify the service type to NodePort: `kubectl -n kube-system edit service kubernetes-dashboard`
+    - use a proxy to redirect your request
+    - !!!!! [iptables -A FORWARD -j ACCEPT](https://stackoverflow.com/questions/46667659/kubernetes-cannot-access-nodeport-from-other-machines)
+  - create service account `kubectl create serviceaccount dashboard-admin`
+  - bind account to cluster admin role `kubectl create clusterrolebinding dashboard-admin --clusterrole=cluster-admin --serviceaccount=default:dashboard-admin`
+  - get access token `kubectl describe secret $(kubectl get secret | grep dashboard-admin | awk '{print $1}')`
+
+## Maintenance
