@@ -38,7 +38,7 @@ spec:
   type: NodePort
   ports:
     - port: 8443
-      nodePort: 9090
+      nodePort: 9090 # expose service
   selector:
     k8s-app: kubernetes-dashboard
 

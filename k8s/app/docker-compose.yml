@@ -1,7 +1,7 @@
 version: "3"
 services:
   connector:
-    build: ./app
+    build: .
     image: temp/node-connector
     deploy:
       replicas: 3
