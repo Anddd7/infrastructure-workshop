@@ -73,6 +73,7 @@ kubectl delete -f redis-svc.yml,redis-deploy.yml,app-deploy.yml,app-svc.yml
 - build & deploy app into k8s cluster
   - install image register [trow](https://github.com/ContainerSolutions/trow)
   - build & push the image into industry [jenkins on k8s](https://www.qikqiak.com/k8s-book/docs/37.Jenkins%20Pipeline.html)
+    - [Install jenkins with helm](https://github.com/bitnami/charts)
   - deploy!
 
 ## Maintenance

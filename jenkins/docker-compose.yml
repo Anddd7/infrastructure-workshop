@@ -1,0 +1,12 @@
+version: "3"
+services:
+  master:
+    build:
+      context: .
+      dockerfile: Dockerfile-master
+    image: anddd7/jenkins-master
+  slave:
+    build:
+      context: .
+      dockerfile: Dockerfile-slave
+    image: anddd7/jenkins-slave
