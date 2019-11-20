@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      containers:
+        - name: jenkins
+          image: anddd7/jenkins:1.0
+          imagePullPolicy: Always
+          env:
+            # Read the configuration-as-code from the ConfigMap
+            - name: CASC_JENKINS_CONFIG
+              value: /var/jenkins_home/casc_configs
+            - name: JAVA_OPTS
+              value: -Djenkins.install.runSetupWizard=false
+
+          ports:
+            - name: http-port
+              containerPort: 8080
+            - name: jnlp-port
+              containerPort: 50000
+
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+            - name: jenkins-configuration-as-code
+              mountPath: /var/jenkins_home/casc_configs
+            - name: docker-socket
+              mountPath: /var/run/docker.sock
+              readOnly: false
+      #        - name: docker
+      #          mountPath: /usr/bin/docker
+      #          readOnly: false
+
+      volumes:
+        - name: jenkins-home
+          emptyDir: {}
+        # The configuration-as-code ConfigMap
+        - name: jenkins-configuration-as-code
+          configMap:
+            name: jenkins-configuration-as-code
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock
+#      - name: docker
+#        hostPath:
+#          path: /usr/bin/docker
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins
+spec:
+  type: NodePort
+  ports:
+    - port: 9000
+      targetPort: 8080
+  selector:
+    app: jenkins
