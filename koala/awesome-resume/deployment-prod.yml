@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: awesome-resume
+spec:
+  selector:
+    matchLabels:
+      app: awesome-resume
+  template:
+    metadata:
+      labels:
+        app: awesome-resume
+    spec:
+      containers:
+        - name: awesome-resume
+          image: anddd7/awesome-resume
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: awesome-resume
+spec:
+  selector:
+    app: awesome-resume
+  type: LoadBalancer
+  ports:
+    - port: 80
