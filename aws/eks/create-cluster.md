@@ -66,3 +66,4 @@ This section also helps you to install the kubectl binary and configure it to wo
 - Launch a Managed Node Group
   - To create your Amazon EKS worker node IAM role
   - To launch your managed node group
+
