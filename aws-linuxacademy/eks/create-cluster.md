@@ -1,4 +1,4 @@
-### k8s cluster by eksctl
+### Create k8s cluster by eksctl
 ```sh
 [cloud_user@ip-10-192-10-173 ~]$ aws configure
 AWS Access Key ID [None]: AKIAXY4KUBBNNRXQVXXI
@@ -45,3 +45,24 @@ Default output format [None]:
 - 本地会在写好对应的kubeconfig, kubectl可以直连集群
 
 ![img](https://s3.amazonaws.com/assessment_engine/production/labs/1343/lab_diagram_Amazon%20EKS%20Deep%20Dive%20-%20Learning%20Activities.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA3ETCCTRFNZRM6ZML%2F20191226%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20191226T075416Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=eb27c473bccbebe914082c0e27f5189123a6afa9fc0967b2b35617ffc68e48f0)
+
+
+### [Create k8s cluster by AWS management console](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-console.html)
+
+Before you can create an Amazon EKS cluster, you must create an IAM role that Kubernetes can assume to create AWS resources. For example, when a load balancer is created, Kubernetes assumes the role to create an Elastic Load Balancing load balancer in your account. This only needs to be done one time and can be used for multiple EKS clusters.
+
+You must also create a VPC and a security group for your cluster to use. Although the VPC and security groups can be used for multiple EKS clusters, we recommend that you use a separate VPC for each EKS cluster to provide better network isolation.
+
+This section also helps you to install the kubectl binary and configure it to work with Amazon EKS.
+
+- Create your Amazon EKS Service Role
+- Create your Amazon EKS Cluster VPC
+- Install kubectl
+- Install AWS CLI
+
+- Create Your Amazon EKS Cluster
+- Create a kubeconfig File
+  - `aws eks --region region update-kubeconfig --name cluster_name`
+- Launch a Managed Node Group
+  - To create your Amazon EKS worker node IAM role
+  - To launch your managed node group
