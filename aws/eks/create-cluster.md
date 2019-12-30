@@ -1,4 +1,5 @@
 ### Create k8s cluster by eksctl
+
 ```sh
 [cloud_user@ip-10-192-10-173 ~]$ aws configure
 AWS Access Key ID [None]: AKIAXY4KUBBNNRXQVXXI
@@ -6,7 +7,8 @@ AWS Secret Access Key [None]: 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
 Default region name [None]: us-east-1
 Default output format [None]:
 ```
-> 配置aws命令行
+
+> 配置 aws 命令行
 
 ```
 [cloud_user@ip-10-192-10-173 ~]$ aws sts get-caller-identity
@@ -16,6 +18,7 @@ Default output format [None]:
     "Arn": "arn:aws:iam::534477277274:user/cloud_user"
 }
 ```
+
 > 检查连接结果
 
 ```
@@ -38,14 +41,13 @@ Default output format [None]:
 [ℹ]  deploying stack "eksctl-attractive-mushroom-1577347608-cluster"
 ```
 
-> 创建eks集群(需要比较长的时间)
+> 创建 eks 集群(需要比较长的时间)
 
-- 完成过后可以在`aws console/cloudformation`里看到对应的两个stack
-    - ec2是通过auto scaling group自动创建的(AMI是专用的k8s node), eks里看不到
-- 本地会在写好对应的kubeconfig, kubectl可以直连集群
+- 完成过后可以在`aws console/cloudformation`里看到对应的两个 stack
+  - ec2 是通过 auto scaling group 自动创建的(AMI 是专用的 k8s node), eks 里看不到
+- 本地会在写好对应的 kubeconfig, kubectl 可以直连集群
 
 ![img](https://s3.amazonaws.com/assessment_engine/production/labs/1343/lab_diagram_Amazon%20EKS%20Deep%20Dive%20-%20Learning%20Activities.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA3ETCCTRFNZRM6ZML%2F20191226%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20191226T075416Z&X-Amz-Expires=7200&X-Amz-SignedHeaders=host&X-Amz-Signature=eb27c473bccbebe914082c0e27f5189123a6afa9fc0967b2b35617ffc68e48f0)
-
 
 ### [Create k8s cluster by AWS management console](https://docs.aws.amazon.com/eks/latest/userguide/getting-started-console.html)
 
@@ -67,3 +69,8 @@ This section also helps you to install the kubectl binary and configure it to wo
   - To create your Amazon EKS worker node IAM role
   - To launch your managed node group
 
+## Command
+
+```
+aws eks update-kubeconfig --name <cluster_name> --profile <aws_profile> --region <cluster_region>
+```
