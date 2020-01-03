@@ -22,6 +22,14 @@
     - [CloudFormation](#cloudformation)
 - [Identity and Access Control](#identity-and-access-control)
   - [IAM (Identity and Access Management)](#iam-identity-and-access-management)
+    - [IAM Essentials](#iam-essentials)
+      - [Amazon Resource Name (ARN)](#amazon-resource-name-arn)
+    - [IAM Policies](#iam-policies)
+    - [IAM Users](#iam-users)
+    - [IAM Groups](#iam-groups)
+      - [identity-based vs resource-based policy](#identity-based-vs-resource-based-policy)
+    - [IAM Access Keys](#iam-access-keys)
+    - [IAM Roles](#iam-roles)
   - [Multi-Account Management and Organizations](#multi-account-management-and-organizations)
 - [Compute](#compute)
   - [Server-Based Compute (EC2) Fundamentals](#server-based-compute-ec2-fundamentals)
@@ -321,15 +329,124 @@ multiple accounts - same billing config
 ![img](./images/cloudformation.png)
 ![img](./images/exam-facts-cloudformation.png)
 
+# Identity and Access Control
+
+## IAM (Identity and Access Management)
+
+### IAM Essentials
+
+**account root user**
+
+- always full access
+- initial set up for IAM users
+  - password policy, security token service(sts)
+- recommend: should not use account root user do any thing except the initial account set up
+
+**'identity' type**
+
+- IAM User
+  - login with username and password or access key
+  - e.g a person, an application
+- IAM Group
+  - cannot loggin
+  - group x n : n x users
+  - e.g a department, a system
+- IAM Role
+  - cannot loggin
+  - can be temporarily taken
+  - e.g a job, a duty-hat
+- IAM Policy
+  - can assigned to group, user or role
+  - define what can/cannot do
+- IAM Credential
+  - username password
+  - access key (for command line)
+  - short term username/password or access key (for role)
+
+You cannot access any resources until given the permission policy
+
+![img](./images/iam.png)
+
+#### Amazon Resource Name (ARN)
+
+an unique identifier for all aws resources
+
+![img](./images/arn.png)
+
+### IAM Policies
+
+![img](./images/iam-policy.png)
+[policy sample](./content-aws-csa2019/lesson_files/02_identity_access_control/iam_policies_and_users/policy.json)
+
+> sid: statement id, unique id
+> effect: allow or deny
+> action: actions which defined by aws and what you want to put in this policy
+> resource: arn or target resources
+
+use managed policy controll the base, customize with inline policy
+
+![img](./images/iam-policy-exam.png)
+
+> 只要有一个 显式的 deny(from user/role/group)就会禁止访问, 即 explicit deny > allow > implicit deny
+
+### IAM Users
+
+![img](./images/iam-user.png)
+![img](./images/iam-user-exam.png)
+
+permission boundry: beyond permission policy
+
+> 一个用户(默认)最大可添加的 managed policy 是 10 个, inline 最大 2048 个字符
+> 建议使用 group 对 policy 进行组合, 然后拆分再赋权给 user
+
+### IAM Groups
+
+> Note that a group is not truly an "identity" in IAM because it cannot be identified as a Principal in a permission policy. It is simply a way to attach policies to multiple users at one time.
+> policy 并不是作用在 group 上的, 只是通过 group 赋权给 user; group 也无法参与 resource-policy 的设置
+
+![img](./images/iam-group.png)
+![img](./images/iam-group-exam.png)
+
+#### [identity-based vs resource-based policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html)
+
+- **Identity-based policies** are attached to an IAM user, group, or role. These policies let you specify what that identity can do (its permissions).
+- **Resource-based policies** are attached to a resource. you can specify who has access to the resource and what actions they can perform on it.
+
+![img](https://docs.aws.amazon.com/IAM/latest/UserGuide/images/Types_of_Permissions.diagram.png)
+
+### IAM Access Keys
+
+Access keys consist of access key IDs and secret access keys. Access keys are the long-term credentials used to authenticate to AWS for anything but the console UI.
+
+- you can have 2 access key
+- secret acess key can only be obtained once at generated
+- recommend: rotate access key regularly
+
+![img](./images/iam-accesskey.png)
+
+### IAM Roles
+
+![img](./images/iam-role.png)
+![img](./images/iam-role-exam.png)
+
+- trust policy: 定义谁能使用这个角色
+- permission policy: 定义这个角色能使用哪些资源
+
+> 创建角色; 指定 trust policy 和 permission policy;
+> assume role: STS 会 validate 是否可以应用此角色;
+> 生成一个 time-limited 的 access keys; 通过这组 keys 可以使用 permission policy 定义的资源;
+
+```
+aws sts assume-role
+```
+
+> 用于 multiple-account/organization aws management
+
 ---
 
 Continue...
 
 ---
-
-# Identity and Access Control
-
-## IAM (Identity and Access Management)
 
 ## Multi-Account Management and Organizations
 
