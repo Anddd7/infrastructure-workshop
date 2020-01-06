@@ -31,6 +31,8 @@
     - [IAM Access Keys](#iam-access-keys)
     - [IAM Roles](#iam-roles)
   - [Multi-Account Management and Organizations](#multi-account-management-and-organizations)
+    - [AWS Organizations](#aws-organizations)
+    - [Role Switching Between Accounts](#role-switching-between-accounts)
 - [Compute](#compute)
   - [Server-Based Compute (EC2) Fundamentals](#server-based-compute-ec2-fundamentals)
   - [Server-Based Compute (EC2) Intermediate](#server-based-compute-ec2-intermediate)
@@ -392,6 +394,7 @@ use managed policy controll the base, customize with inline policy
 ### IAM Users
 
 ![img](./images/iam-user.png)
+
 ![img](./images/iam-user-exam.png)
 
 permission boundry: beyond permission policy
@@ -405,6 +408,7 @@ permission boundry: beyond permission policy
 > policy 并不是作用在 group 上的, 只是通过 group 赋权给 user; group 也无法参与 resource-policy 的设置
 
 ![img](./images/iam-group.png)
+
 ![img](./images/iam-group-exam.png)
 
 #### [identity-based vs resource-based policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html)
@@ -427,6 +431,7 @@ Access keys consist of access key IDs and secret access keys. Access keys are th
 ### IAM Roles
 
 ![img](./images/iam-role.png)
+
 ![img](./images/iam-role-exam.png)
 
 - trust policy: 定义谁能使用这个角色
@@ -441,14 +446,38 @@ aws sts assume-role
 ```
 
 > 用于 multiple-account/organization aws management
+> e.g A 公司的员工可以通过 B 公司的 Role, 访问 B 公司的资源
+
+## Multi-Account Management and Organizations
+
+### AWS Organizations
+
+Manage multiple accounts
+
+- consolidate bill
+
+  > aws account 默认是 standard account
+  > 由 aws account 创建的 organization 中, 会升级为 master account
+  > member account 的账单会提交给 master 统一管理
+
+- all features mode
+
+  > can limit usage of organization unit or member account using service control policies
+  > master account only used to manage service control policies and pay the bill
+
+![img](./images/organization-billing-1.png)
+
+![img](./images/organization-billing-2.png)
+
+### Role Switching Between Accounts
+
+![img](./images/switch-role.png)
 
 ---
 
 Continue...
 
 ---
-
-## Multi-Account Management and Organizations
 
 # Compute
 

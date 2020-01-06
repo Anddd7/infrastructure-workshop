@@ -1,5 +1,9 @@
 # AWS Certified Solution Architect Associate (SAA-C01)
 
+**01.06** | **18%**
+
+- IAM Roles and Multiple Accounts Management(with organization)
+
 **01.03**
 
 - IAM details
