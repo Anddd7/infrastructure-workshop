@@ -35,6 +35,10 @@
     - [Role Switching Between Accounts](#role-switching-between-accounts)
 - [Compute](#compute)
   - [Server-Based Compute (EC2) Fundamentals](#server-based-compute-ec2-fundamentals)
+    - [EC2 Architecture](#ec2-architecture)
+      - [EC2 is IaaS](#ec2-is-iaas)
+      - [EC2 basic](#ec2-basic)
+    - [Instance Types and Sizes](#instance-types-and-sizes)
   - [Server-Based Compute (EC2) Intermediate](#server-based-compute-ec2-intermediate)
   - [Server-Based Compute (EC2) Advanced](#server-based-compute-ec2-advanced)
   - [Serverless Compute (Lambda)](#serverless-compute-lambda)
@@ -473,15 +477,57 @@ Manage multiple accounts
 
 ![img](./images/switch-role.png)
 
+# Compute
+
+## Server-Based Compute (EC2) Fundamentals
+
+### EC2 Architecture
+
+#### EC2 is IaaS
+
+- Monolithic applications
+- Consistent, long-running compute scenarios
+- Applications that require full OS/runtime installations
+- Services, endpoints, and/or applications that require high availability
+
+![img](./images/ec2.png)
+
+#### EC2 basic
+
+- EC2 Host: 实际运行的物理主机
+- EC2 Instance: 划分给用户使用的虚拟主机
+  > “An important difference between a Dedicated Host and a Dedicated Instance is that a Dedicated Host gives you additional visibility and control over how instances are placed on a physical server, and you can consistently deploy your instances to the same physical server over time.”
+- [Instance Store Volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html): 在物理机所管理的存储空间上临时划分给 Instance 的空间
+- Amazon Machine Image(AMI): 虚拟机镜像
+- Elastic Block Store(EBS): 可挂载的 block-storage
+  - [vs Instance Store](https://medium.com/awesome-cloud/aws-difference-between-ebs-and-instance-store-f030c4407387): **if an instance is stopped or terminated, any data on instance store volumes is lost.**
+
+![img](https://miro.medium.com/max/4640/1*qsp2AVDuy9-UC3eykIWM_w.png)
+
+- [Elastic Network Interface(ENI)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide//using-eni.html): 类似虚拟网卡, 主要包含 IP 相关的信息
+  - 由 Security Group 管理 IP 的访问域
+- CloudWatch: AWS 监控中心
+
+[EC2 Instance Lifecycle](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html)
+![img](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/instance_lifecycle.png)
+
+### [Instance Types and Sizes](https://aws.amazon.com/ec2/instance-types/)
+
+[T3 vs M5](https://www.apptio.com/emerge/ec2-m5-vs-t3/)
+
+> Burstable Performance Instances
+
+> T2 或 T3 有一个 CPU Baseline, 即 24 小时内 CPU 的使用率未超过基线, 则按一般价格收费; 超过了即按 On-Demand 收费;
+> 1 credit = 1 vCPU * 100% * 1 min = 2 vCPUs * 50% * 1 min
+> 低于baseline的运行会累积credit, 超过时会先抵扣
+
+![img](./images/ec2-size.png)
+
 ---
 
 Continue...
 
 ---
-
-# Compute
-
-## Server-Based Compute (EC2) Fundamentals
 
 ## Server-Based Compute (EC2) Intermediate
 
