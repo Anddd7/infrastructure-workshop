@@ -1,0 +1,12 @@
+version: "3"
+services:
+  logstash:
+    image: logstash:7.6.0
+    container_name: logstash-server
+    environment: 
+      - APP_ENV=manually
+    volumes:
+      - ./config/:/config-dir
+    ports: 
+      - 5000:5000
+    command: logstash -f /config-dir/logstash.conf

@@ -39,6 +39,7 @@
       - [EC2 is IaaS](#ec2-is-iaas)
       - [EC2 basic](#ec2-basic)
     - [Instance Types and Sizes](#instance-types-and-sizes)
+    - [EC2 Storage Architecture](#ec2-storage-architecture)
   - [Server-Based Compute (EC2) Intermediate](#server-based-compute-ec2-intermediate)
   - [Server-Based Compute (EC2) Advanced](#server-based-compute-ec2-advanced)
   - [Serverless Compute (Lambda)](#serverless-compute-lambda)
@@ -522,6 +523,15 @@ Manage multiple accounts
 > 低于baseline的运行会累积credit, 超过时会先抵扣
 
 ![img](./images/ec2-size.png)
+
+### EC2 Storage Architecture
+
+Instance Storage Volumes
+
+`df -h`: list  file system
+`lsblk`: list all block device
+
+
 
 ---
 
