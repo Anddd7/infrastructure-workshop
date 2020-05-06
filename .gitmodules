@@ -10,3 +10,6 @@
 [submodule "aws/saa/content-aws-csa2019"]
 	path = aws/saa/content-aws-csa2019
 	url = git@github.com:linuxacademy/content-aws-csa2019.git
+[submodule "aws/saa/content-aws-soa-c01"]
+	path = aws/saa/content-aws-soa-c01
+	url = git@github.com:linuxacademy/content-aws-soa-c01.git
