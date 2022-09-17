@@ -18,12 +18,15 @@ resource "google_compute_instance" "this" {
   network_interface {
     subnetwork = var.input.subnetwork
 
-    access_config {
-      // Ephemeral public IP
+    dynamic "access_config" {
+      for_each = local.access_config
+      content {
+        // Ephemeral public IP
+      }
     }
   }
 
-  metadata = var.input.metadata
+  metadata = local.metadata
 
   metadata_startup_script = "echo hi > /test.txt"
 

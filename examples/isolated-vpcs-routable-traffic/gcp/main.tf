@@ -71,39 +71,33 @@ resource "google_compute_network_peering" "private_2_public" {
 
 module "public_vm_1" {
   source = "./vm"
+  access_type = "public"
   input  = {
     name         = "public-vm-1"
     zone         = "${local.region}-a"
     subnetwork   = google_compute_subnetwork.public_subnet_1.self_link
     network_tags = ["allow-alltraffic"]
-    metadata     = {
-      created = "terraform"
-    }
   }
 }
 
 module "private_vm_1" {
   source = "./vm"
+  access_type = "private"
   input  = {
     name         = "private-vm-1"
     zone         = "${local.region}-b"
     subnetwork   = google_compute_subnetwork.private_subnet_1.self_link
     network_tags = ["allow-alltraffic"]
-    metadata     = {
-      created = "terraform"
-    }
   }
 }
 
 module "private_vm_2" {
   source = "./vm"
+  access_type = "private"
   input  = {
     name         = "private-vm-2"
     zone         = "${local.region}-c"
     subnetwork   = google_compute_subnetwork.private_subnet_2.self_link
     network_tags = ["allow-alltraffic"]
-    metadata     = {
-      created = "terraform"
-    }
   }
 }
