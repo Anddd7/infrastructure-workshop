@@ -1,6 +1,6 @@
-
 provider "google" {
+  # TODO modify the project after loading the playground
+  project     = "playground-s-11-1e20b43e"
   credentials = file("~/.config/gcloud/application_default_credentials.json")
-  project     = "playground-s-11-9b98f7af"
-  region      = "AUSTRALIA-SOUTHEAST1"
+  region      = "australia-southeast1"
 }
