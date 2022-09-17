@@ -1,15 +1,9 @@
-[submodule "aws-linuxacademy/eks-workshop/ecsdemo-frontend"]
-	path = aws-linuxacademy/eks-workshop/ecsdemo-frontend
-	url = https://github.com/brentley/ecsdemo-frontend.git
-[submodule "aws-linuxacademy/eks-workshop/ecsdemo-nodejs"]
-	path = aws-linuxacademy/eks-workshop/ecsdemo-nodejs
-	url = https://github.com/brentley/ecsdemo-nodejs.git
-[submodule "aws-linuxacademy/eks-workshop/ecsdemo-crystal"]
-	path = aws-linuxacademy/eks-workshop/ecsdemo-crystal
-	url = https://github.com/brentley/ecsdemo-crystal.git
 [submodule "aws/saa/content-aws-csa2019"]
 	path = aws/saa/content-aws-csa2019
 	url = git@github.com:linuxacademy/content-aws-csa2019.git
 [submodule "aws/saa/content-aws-soa-c01"]
 	path = aws/saa/content-aws-soa-c01
 	url = git@github.com:linuxacademy/content-aws-soa-c01.git
+[submodule "terraform/learn-terraform-modules-create"]
+	path = terraform/learn-terraform-modules-create
+	url = https://github.com/hashicorp/learn-terraform-modules-create.git
