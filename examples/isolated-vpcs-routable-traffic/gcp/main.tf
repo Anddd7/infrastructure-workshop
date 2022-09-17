@@ -71,7 +71,7 @@ resource "google_compute_network_peering" "private_2_public" {
 
 module "public_vm_1" {
   source      = "./vm"
-  access_type = "public"
+  access_type = "private"
   input       = {
     name         = "public-vm-1"
     zone         = "${var.region}-a"
