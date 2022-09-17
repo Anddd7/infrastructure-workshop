@@ -6,7 +6,7 @@ resource "google_compute_network" "public_vpc" {
 resource "google_compute_subnetwork" "public_subnet_1" {
   name          = "public-subnet-1"
   ip_cidr_range = "10.1.0.0/16"
-  region        = local.region
+  region        = var.region
   network       = google_compute_network.public_vpc.id
 }
 resource "google_compute_network" "private_vpc" {
@@ -16,13 +16,13 @@ resource "google_compute_network" "private_vpc" {
 resource "google_compute_subnetwork" "private_subnet_1" {
   name          = "private-subnet-1"
   ip_cidr_range = "10.2.0.0/16"
-  region        = local.region
+  region        = var.region
   network       = google_compute_network.private_vpc.id
 }
 resource "google_compute_subnetwork" "private_subnet_2" {
   name          = "private-subnet-2"
   ip_cidr_range = "10.3.0.0/16"
-  region        = local.region
+  region        = var.region
   network       = google_compute_network.private_vpc.id
 }
 
@@ -70,33 +70,33 @@ resource "google_compute_network_peering" "private_2_public" {
 # vms
 
 module "public_vm_1" {
-  source = "./vm"
+  source      = "./vm"
   access_type = "public"
-  input  = {
+  input       = {
     name         = "public-vm-1"
-    zone         = "${local.region}-a"
+    zone         = "${var.region}-a"
     subnetwork   = google_compute_subnetwork.public_subnet_1.self_link
     network_tags = ["allow-alltraffic"]
   }
 }
 
 module "private_vm_1" {
-  source = "./vm"
+  source      = "./vm"
   access_type = "private"
-  input  = {
+  input       = {
     name         = "private-vm-1"
-    zone         = "${local.region}-b"
+    zone         = "${var.region}-b"
     subnetwork   = google_compute_subnetwork.private_subnet_1.self_link
     network_tags = ["allow-alltraffic"]
   }
 }
 
 module "private_vm_2" {
-  source = "./vm"
+  source      = "./vm"
   access_type = "private"
-  input  = {
+  input       = {
     name         = "private-vm-2"
-    zone         = "${local.region}-c"
+    zone         = "${var.region}-c"
     subnetwork   = google_compute_subnetwork.private_subnet_2.self_link
     network_tags = ["allow-alltraffic"]
   }

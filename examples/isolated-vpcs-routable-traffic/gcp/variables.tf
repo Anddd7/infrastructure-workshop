@@ -1,3 +1,2 @@
-locals {
-  region = "australia-southeast1"
-}
+variable "backend_bucket_name" {}
+variable "region" {}
