@@ -1,5 +1,5 @@
 locals {
-  project_name = "playground-s-11-663b4362"
+  project_name = "playground-s-11-981af5d1"
   bucket_name  = "tf-state_${local.project_name}"
   region       = "australia-southeast1"
 }

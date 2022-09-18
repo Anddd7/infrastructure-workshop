@@ -1,13 +1,16 @@
 resource "google_service_account" "this" {
-  account_id   = "${var.input.name}-sa"
-  display_name = "Service Account of ${var.input.name}"
+  account_id   = "${var.name}-sa"
+  display_name = "Service Account of ${var.name}"
 }
 
 resource "google_compute_instance" "this" {
-  name         = var.input.name
-  machine_type = "e2-medium"
-  zone         = var.input.zone
-  tags         = var.input.network_tags
+  name                    = var.name
+  machine_type            = "e2-medium"
+  zone                    = var.zone
+  tags                    = var.network_tags
+  metadata                = var.metadata
+  metadata_startup_script = var.metadata_startup_script
+  can_ip_forward          = var.can_ip_forward
 
   boot_disk {
     initialize_params {
@@ -16,7 +19,7 @@ resource "google_compute_instance" "this" {
   }
 
   network_interface {
-    subnetwork = var.input.subnetwork
+    subnetwork = var.subnetwork
 
     dynamic "access_config" {
       for_each = local.access_config
@@ -26,12 +29,15 @@ resource "google_compute_instance" "this" {
     }
   }
 
-  metadata = local.metadata
-
-  metadata_startup_script = "echo hi > /test.txt"
-
   service_account {
     email  = google_service_account.this.email
-    scopes = ["cloud-platform"]
+    scopes = ["compute-rw", "cloud-platform",]
   }
+}
+
+output "hostname" {
+  value = google_compute_instance.this.hostname
+}
+output "instance_id" {
+  value = google_compute_instance.this.instance_id
 }

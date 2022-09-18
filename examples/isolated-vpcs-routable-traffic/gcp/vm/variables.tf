@@ -1,17 +1,23 @@
 locals {
   access_config = var.access_type == "public" ? [true] : []
-  metadata      = {
+}
+
+variable "name" { type = string }
+variable "zone" { type = string }
+variable "subnetwork" { type = string }
+variable "network_tags" { type = list(string) }
+variable "access_type" { type = string }
+
+// defaults
+
+variable "metadata" {
+  default = {
     created = "terraform"
   }
 }
-
-variable "input" {
-  type = object({
-    name         = string
-    zone         = string
-    subnetwork   = string
-    network_tags = list(string)
-  })
+variable "metadata_startup_script" {
+  default = "echo hi > /test.txt"
 }
-
-variable "access_type" {}
+variable "can_ip_forward" {
+  default = false
+}
