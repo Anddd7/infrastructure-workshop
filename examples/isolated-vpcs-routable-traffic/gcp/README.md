@@ -1,8 +1,9 @@
-- https://registry.terraform.io/providers/hashicorp/google/latest/docs
+- gcp terraform: https://registry.terraform.io/providers/hashicorp/google/latest/docs
 - a cloud guru limit: us, europe, australia-southeast
 - youtube
     - how peering works: https://www.youtube.com/watch?v=ZGUwEuubBwU
     - how to use nat: https://www.youtube.com/watch?v=Y47yGMY2-UU
+- nat in vpc peering mode: https://themirgleich.medium.com/how-to-use-cloud-nat-with-vpc-peering-5a3874315502
 
 ### login
 
